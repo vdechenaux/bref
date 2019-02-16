@@ -9,11 +9,7 @@ use Symfony\Component\Process\Process;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $layers = [
-    'php-73' => 'PHP 7.3 for PHP functions',
     'php-73-fpm' => 'PHP-FPM 7.3 for HTTP applications',
-    'php-72' => 'PHP 7.2 for PHP functions',
-    'php-72-fpm' => 'PHP-FPM 7.2 for HTTP applications',
-    'console' => 'Console runtime for PHP applications',
 ];
 foreach ($layers as $layer => $layerDescription) {
     $file = __DIR__ . "/export/$layer.zip";
@@ -27,21 +23,7 @@ foreach ($layers as $layer => $layerDescription) {
  * These are the regions on which the layers are published.
  */
 $regions = [
-    'ca-central-1',
-    'eu-central-1',
-    'eu-west-1',
-    'eu-west-2',
     'eu-west-3',
-    'sa-east-1',
-    'us-east-1',
-    'us-east-2',
-    'us-west-1',
-    'us-west-2',
-    'ap-south-1',
-    'ap-northeast-1',
-    'ap-northeast-2',
-    'ap-southeast-1',
-    'ap-southeast-2',
 ];
 
 // Publish the layers

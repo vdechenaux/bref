@@ -367,6 +367,12 @@ WORKDIR  ${PHP_BUILD_DIR}/
 # libicu-devel : needed for
 RUN LD_LIBRARY_PATH= yum install -y readline-devel gettext-devel libicu-devel
 
+RUN LD_LIBRARY_PATH= yum install -y libc-client-devel krb5-devel
+RUN cp /usr/lib64/libc-client.so ${INSTALL_DIR}/lib/
+RUN cp /usr/lib64/libc-client.so.2007 ${INSTALL_DIR}/lib/
+RUN ln -s /usr/lib64/libc-client.so /usr/lib/libc-client.so
+RUN ln -s /usr/lib64/libc-client.so.2007 /usr/lib/libc-client.so.2007
+
 # Configure the build
 # -fstack-protector-strong : Be paranoid about stack overflows
 # -fpic : Make PHP's main executable position-independent (improves ASLR security mechanism, and has no performance impact on x86_64)
@@ -412,7 +418,10 @@ RUN set -xe \
         --enable-zip \
         --with-pdo-pgsql=shared,${INSTALL_DIR} \
         --enable-intl=shared \
-        --enable-opcache-file
+        --enable-opcache-file \
+        --with-imap \
+        --with-imap-ssl \
+        --with-kerberos
 RUN make -j $(nproc)
 # Run `make install` and override PEAR's PHAR URL because pear.php.net is down
 RUN set -xe; \

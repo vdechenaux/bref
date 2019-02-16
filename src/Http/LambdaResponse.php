@@ -65,10 +65,10 @@ class LambdaResponse
         // This is the format required by the AWS_PROXY lambda integration
         // See https://stackoverflow.com/questions/43708017/aws-lambda-api-gateway-error-malformed-lambda-proxy-response
         return [
-            'isBase64Encoded' => false,
+            'isBase64Encoded' => true,
             'statusCode' => $this->statusCode,
             'headers' => $headers,
-            'body' => $this->body,
+            'body' => base64_encode($this->body),
         ];
     }
 }
